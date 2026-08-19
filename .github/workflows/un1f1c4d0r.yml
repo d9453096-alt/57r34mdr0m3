@@ -10,11 +10,15 @@ jobs:
       - name: 🗄️ Clonando el búnker de archivos estáticos
         uses: actions/checkout@v4
 
-      # 🪓 [REPARADO v2.2]: Extirpamos el apt-get install que te congelaba la máquina 52 minutos.
-      # Usamos el FFmpeg nativo que GitHub ya te regala adentro del chasis deBoxes.
+      # 🪓 [REPARADO DEFINITIVO v2.3]: Instalación directa express sin muga de updates eternos.
+      # Va derecho al grano a bajarte el binario de FFmpeg en 15 segundos sordos.
+      - name: ⚙️ Instalación Express de FFmpeg por Hardware
+        run: |
+          sudo apt-get install -y ffmpeg
+
       - name: 🚀 Descarga Satelital y Re-Renderizado Líquido de Películas (ADN Unificado)
         run: |
-          # 🪓 [REACTOR DE RELEVOS v2.2 - RE-ENCODE TOTAL ANTI-CORTES]
+          # 🪓 [REACTOR DE RELEVOS v2.3 - RE-ENCODE TOTAL ANTI-CORTES]
           export TERM=xterm
           
           echo "📡 [MUTINY TV] EMPEZANDO PROCESO DE UNIFICACIÓN CRIPTOGRÁFICA..."
@@ -62,7 +66,6 @@ jobs:
           echo "🪓 [MUTINY] LICUANDO EL ADN DE LAS SERIES EN UN SOLO CAÑO CONTINUO..."
           
           # 3. LA CRÍA BIÓNICA: Forzamos la re-codificación ultrafast.
-          # [CORREGIDO v2.2]: Quitamos el filtro 'cliptcts' inexistente que te habría dado portazo en el render.
           ffmpeg -y ${CADENA_FILTER} -filter_complex "${FILTRO_CONCAT}" \
           -map "[v_out]" -map "[a_out]" -r 30 -pix_fmt yuv420p \
           -c:v libx264 -preset ultrafast -tune zerolatency -b:v 2000k \
