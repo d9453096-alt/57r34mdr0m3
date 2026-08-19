@@ -80,9 +80,10 @@ jobs:
           files: maraton_perfecta.mp4
           tag_name: Latest
           name: "🍿 Mutiny TV - Cartucho Masterizado Listo para Emisión"
-          body: "Este archivo tiene el ADN unificado. Pasó por el molde de 720p 30FPS rígidos con audio latino síncrono y SAR normalizado. Inmune a baches de red y libre de congelamientos."
-          draft: false
-          prerelease: false
+          body: "Este archivo tiene el ADN unificado. Pasó por el molde de 720p 30FPS rígidos con audio latino síncrono. Inmune a baches de red y libre de congelamientos."
+          draft: false      # 🪓 [REPARADO DEFINITIVO]: Forzamos el false rígido
+          prerelease: false # 🪓 [REPARADO DEFINITIVO]: Forzamos el false rígido
+          make_latest: true # 🟢 EL REMACHE MAESTRO: Obliga a GitHub a publicar el archivo de una
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
