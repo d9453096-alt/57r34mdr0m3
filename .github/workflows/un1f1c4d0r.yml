@@ -10,15 +10,14 @@ jobs:
       - name: 🗄️ Clonando el búnker de archivos estáticos
         uses: actions/checkout@v4
 
-      # 🪓 [REPARADO DEFINITIVO v2.3]: Instalación directa express sin muga de updates eternos.
-      # Va derecho al grano a bajarte el binario de FFmpeg en 15 segundos sordos.
+      # Instalación express directa en 15 segundos sin updates parásitos
       - name: ⚙️ Instalación Express de FFmpeg por Hardware
         run: |
           sudo apt-get install -y ffmpeg
 
       - name: 🚀 Descarga Satelital y Re-Renderizado Líquido de Películas (ADN Unificado)
         run: |
-          # 🪓 [REACTOR DE RELEVOS v2.3 - RE-ENCODE TOTAL ANTI-CORTES]
+          # 🪓 [REACTOR DE RELEVOS v2.4 - RE-ENCODE TOTAL LOCAL FIXED]
           export TERM=xterm
           
           echo "📡 [MUTINY TV] EMPEZANDO PROCESO DE UNIFICACIÓN CRIPTOGRÁFICA..."
@@ -29,7 +28,7 @@ jobs:
           contador=1
           CADENA_FILTER=""
           
-          # 2. Descarga y normalización por hardware en la memoria virtual
+          # 2. Descarga a velocidad satelital en la memoria virtual
           while read -r linea || [ -n "$linea" ]; do
             URL_VIDEO=$(echo "$linea" | awk -F'|' '{print $1}' | tr -d ' ')
             
@@ -41,8 +40,9 @@ jobs:
                    -H "User-Agent: VLC/3.0.18 LibVLC/3.0.18" \
                    -o "origen_${contador}.video" "$URL_VIDEO"
               
-              # Armamos los eslabones del filtro de FFmpeg dinámicamente
-              CADENA_FILTER="${CADENA_FILTER} -reconnect 1 -reconnect_delay_max 5 -fflags +genpts -i origen_${contador}.video"
+              # [REPARADO v2.4]: Limpiamos los flags de reconexión de internet para el archivo local.
+              # Solo le pasamos el flag -i con el nombre rígido del archivo deBoxes.
+              CADENA_FILTER="${CADENA_FILTER} -i origen_${contador}.video"
               contador=$((contador + 1))
             fi
           done < lista_gist.txt
@@ -65,10 +65,10 @@ jobs:
 
           echo "🪓 [MUTINY] LICUANDO EL ADN DE LAS SERIES EN UN SOLO CAÑO CONTINUO..."
           
-          # 3. LA CRÍA BIÓNICA: Forzamos la re-codificación ultrafast.
+          # 3. LA CRÍA BIÓNICA: Forzamos la re-codificación ultrafast sin trabas de chapa
           ffmpeg -y ${CADENA_FILTER} -filter_complex "${FILTRO_CONCAT}" \
           -map "[v_out]" -map "[a_out]" -r 30 -pix_fmt yuv420p \
-          -c:v libx264 -preset ultrafast -tune zerolatency -b:v 2000k \
+          -c:v libx264 -preset ultrafast -tune zerolatency -b:v 2500k \
           -c:a aac -b:a 128k -ac 2 -ar 44100 maraton_perfecta.mp4
 
           echo "✅ Súper-video de 6 horas soldado y normalizado a la perfección."
@@ -86,4 +86,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          
+        
