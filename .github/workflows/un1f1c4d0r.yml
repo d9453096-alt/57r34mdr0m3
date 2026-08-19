@@ -1,0 +1,70 @@
+name: 🪓 Mutiny TV - Master Unificador VOD de Largo Fluido v1.0
+
+on:
+  workflow_dispatch: # Botón manual de PLAY en la web de GitHub para armar el cartucho
+
+jobs:
+  unificar_maraton:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🗄️ Clonando el búnker de archivos estáticos
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Instalando FFmpeg nativo por hardware en la nube
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg curl jq
+
+      - name: 🚀 Descarga Satelital y Costura Binaria de Películas (Copia Directa)
+        run: |
+          # 🪓 [REACTOR DE RELEVOS v1.0 - DIEGO COPIED CONTINUOUS CORE]
+          export TERM=xterm
+          
+          echo "📡 [MUTINY TV] EMPEZANDO PROCESO DE UNIFICACIÓN CRIPTOGRÁFICA..."
+          
+          # 1. Chupamos tu playlist unificada del Gist privado donde dejaste los capítulos en fila india
+          curl -s "https://gist.githubusercontent.com/jav45dev-ctrl/c02c7fac36fde342f061b733231a5e6d/raw/playlist.txt" | tr -d '\r' | sed '/^$/d' > lista_gist.txt
+          
+          # Inicializamos los archivos de control intermedio en la memoria virtual
+          echo "# Lista de reproducción para FFmpeg" > inputs_ffmpeg.txt
+          contador=1
+
+          # 2. El bucle satelital: descarga los .mp4/.mkv uno por uno a más de 100 MB/s
+          while read -r linea || [ -n "$linea" ]; do
+            # Separamos la URL cruda usando la tubería '|' deboxes
+            URL_VIDEO=$(echo "$linea" | awk -F'|' '{print $1}' | tr -d ' ')
+            
+            if [ -n "$URL_VIDEO" ]; then
+              echo "📥 Descargando Tramo $contador de internet: $URL_VIDEO"
+              
+              # Le inyectamos tus cabeceras y pasaporte TOKEN_B intactos para saltar aduanas de GitHub
+              curl -L -H "Authorization: token ${{ secrets.TOKEN_B }}" \
+                   -H "User-Agent: VLC/3.0.18 LibVLC/3.0.18" \
+                   -o "tramo_${contador}.mp4" "$URL_VIDEO"
+              
+              # Agendamos el archivo descargado en la lista rígida de FFmpeg
+              echo "file 'tramo_${contador}.mp4'" >> inputs_ffmpeg.txt
+              contador=$((contador + 1))
+            fi
+          done < lista_gist.txt
+
+          echo "🪓 [MUTINY] COSTURA BINARIA DE LOS BORDES EN FRÍO ABSOLUTO..."
+          cat inputs_ffmpeg.txt
+
+          # 3. LA MAGIA PURISTA: -f concat junta las partes y -c copy clava strictly CERO pérdida de calidad
+          ffmpeg -y -f concat -safe 0 -i inputs_ffmpeg.txt -c copy maraton_perfecta.mp4
+
+          echo "✅ Súper-video de 6 horas cocinado con éxito en la RAM virtual."
+          ls -lh maraton_perfecta.mp4
+
+      - name: 📦 Guardando Cartucho en las Releases del Repositorio (Auditoría Libre)
+        uses: softprops/action-gh-release@v2
+        with:
+          files: maraton_perfecta.mp4
+          tag_name: Latest
+          name: "🍿 Mutiny TV - Cartucho Masterizado Listo para Emisión"
+          body: "Este archivo contiene la maratón de 6 horas continuas de corrido sin microcortes de red. Verificado a escuadra rígida deBoxes."
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
